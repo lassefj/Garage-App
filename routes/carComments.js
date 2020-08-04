@@ -27,10 +27,6 @@ router.post('/', (req, res) => {
     })
 })
 
-router.get('/', (req, res) => {
-    res.send('VIRKER!')
-})
-
 
 
 module.exports = router;

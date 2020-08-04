@@ -45,10 +45,8 @@ router.get('/:carid', (req, res) => {
 
     Car.findById(req.params.carid).populate('comments').exec((err, car) => {
         if (err) {
-            console.log('---------ERROR---------');
             console.log(err);
         } else {
-            console.log('-------------------');
             res.render('cars/show', {
                 title: 'Show car',
                 car: car,

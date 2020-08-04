@@ -17,12 +17,8 @@ router.post('/', (req, res, next) => {
         } else {
             CustomerComment.create(data, (err, comment) => {
                 if (err) {
-                    console.log('FEJL2');
                     console.log(err);
                 } else {
-                    console.log('NEW COMMENT ADDED TO CUSTOMER');
-                    console.log(customer);
-                    console.log('----------------------');
                     customer.comments.push(comment);
                     customer.save();
                     res.redirect('/customers/' + customer._id)

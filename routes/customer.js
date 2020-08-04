@@ -34,7 +34,6 @@ router.post('/', (req, res, next) => {
         if (err) {
             console.log(err);
         } else {
-            console.log('NEW CUSTOMER ADDED TO DATABASE');
             res.redirect('customers')
         }
     });
@@ -51,7 +50,6 @@ router.get('/:id', function (req, res, next) {
         if (err) {
             console.log(err);
         } else {
-            console.log(foundCustomer);
             res.render('customers/show', { title: 'Customer: ' + foundCustomer.name, foundCustomer: foundCustomer })
         }
     })
@@ -68,7 +66,6 @@ router.delete('/:id', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log('CUSTOMER IS REMOVED');
             res.redirect('/customers')
         }
 
@@ -100,10 +97,6 @@ router.put('/:id', (req, res) => {
         if (err) {
             console.log(err)
         } else {
-            console.log('--------------------------------------');
-            console.log(data);
-            console.log('--------------------------------------');
-            console.log('Customer is updated');
             res.redirect('/customers')
         }
     })
