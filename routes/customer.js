@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
         if (err) {
             console.log(err);
         } else {
-            res.render('customers/index', { title: 'Customers', allCustomers: allCustomers })
+            res.render('customers/index', { title: 'Customers', allCustomers: allCustomers, currentUser: req.user })
         }
     });
 

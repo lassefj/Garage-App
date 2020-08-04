@@ -8,6 +8,9 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var passport = require('passport');
+var LocalStrategy = require("passport-local")
+var User = require('./models/user')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -23,6 +26,18 @@ mongoose.connect(process.env.DB_HOST + 'garageDB', { useNewUrlParser: true, useU
   console.log('Mongoose is connected!');
 });
 
+// PASSPORT SETUP
+app.use(require('express-session')({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -36,7 +51,12 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
+// FILL IN TITLE IF NEEDED
+app.use(function (req, res, next) {
+  res.locals.title = 'GarageApp';
+  res.locals.currentUser = req.user;
+  next()
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -60,6 +80,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 app.listen(3000, function () {
   console.log('Succes');
