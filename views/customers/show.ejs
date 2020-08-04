@@ -1,0 +1,41 @@
+<%- include ('../partials/header') %>
+
+<section class="jumbotron text-center">
+    <h1>Customer: <%= foundCustomer.name %> </h1>
+</section>
+<section class="container">
+    <h2>E-mail: <%= foundCustomer.email %> </h2>
+    <h2>Number plate: <%= foundCustomer.numberplate %> </h2>
+    <h2>Description: <%= foundCustomer.description %> </h2>
+    <a href="/customers/<%= foundCustomer._id %>/edit" class="btn btn-warning">Edit</a>
+    <form action="/customers/<%= foundCustomer._id %>?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-danger">DELETE</button>
+    </form>
+</section>
+<section class="container">
+    <hr>
+    <h2>Cars</h2>
+    <% foundCustomer.cars.forEach((car)=>{ %>
+    <a href="/customers/<%= foundCustomer._id %>/cars/<%=car._id %>/">
+        <h3>Name: <%= car.name %></h3>
+    </a>
+    <h3>Make: <%= car.make %></h3>
+    <h3>Model: <%= car.model %></h3>
+    <h3>Description: <%= car.description %></h3>
+    <% }) %>
+</section>
+<section class="container">
+    <h2>Comments</h2>
+    <hr>
+    <% foundCustomer.comments.forEach((comment)=>{ %>
+    <%= comment.text %>
+    <hr>
+    <% }); %>
+    <br>
+    <form action="/customers/<%= foundCustomer._id %>/comments" method="POST">
+        <input type="text" name="text">
+        <button type="submit">Send</button>
+    </form>
+</section>
+
+<%- include ('../partials/footer') %>

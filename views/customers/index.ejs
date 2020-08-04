@@ -1,0 +1,28 @@
+<%- include ('../partials/header') %>
+
+<section class="jumbotron text-center">
+    <h1>Customers</h1>
+    <a href="/customers/new">New customer</a>
+</section>
+<section class="container">
+
+    <div class="row">
+        <div class="col-4"><strong>Name</strong></div>
+        <div class="col-4"><strong>Email</strong></div>
+        <div class="col-4"><strong>Numberplater</strong></div>
+    </div>
+    <% allCustomers.forEach(customer => { %>
+    <a href="/customers/<%= customer._id %> ">
+        <div class="row list-item">
+            <div class="col-4"><%= customer.name %> </div>
+            <div class="col-4"><%= customer.email %> </div>
+            <div class="col-4"><%= customer.numberplate %> </div>
+        </div>
+    </a>
+    <% }); %>
+
+
+
+</section>
+
+<%- include ('../partials/footer') %>

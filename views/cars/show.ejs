@@ -1,0 +1,17 @@
+<%- include ('../partials/header') %>
+<section class="jumbotron text-center">
+    <h1>Car: <%= car.make %> <%= car.model %> </h1>
+</section>
+
+<section class="container">
+    <% car.comments.forEach((comment)=>{ %>
+    <%= comment.text  %><br>
+    <% }) %>
+</section>
+
+<form action="/customers/<%= param %>/cars/<%= car._id %>/comments" method="POST">
+    <input type="text" name="text">
+    <button type="submit">Send</button>
+</form>
+
+<%- include ('../partials/footer') %>

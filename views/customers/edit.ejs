@@ -1,0 +1,31 @@
+<%- include ('../partials/header') %>
+
+<section class="jumbotron text-center">
+    <h1>Edit customer: <%= foundCustomer.name %> </h1>
+</section>
+<div class="container">
+    <form action="/customers/<%= foundCustomer._id %>?_method=PUT" method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="customer[name]" value="<%= foundCustomer.name %>">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="customer[email]"
+                value="<%= foundCustomer.email %>">
+        </div>
+        <div class="form-group">
+            <label for="name">Numberplate</label>
+            <input type="text" class="form-control" id="name" name="customer[numberplate]"
+                value="<%= foundCustomer.numberplate %>">
+        </div>
+        <div class="form-group">
+            <label for="name">Description</label>
+            <input type="text" class="form-control" id="name" name="customer[description]"
+                value="<%= foundCustomer.description %>">
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+
+<%- include ('../partials/footer') %>
