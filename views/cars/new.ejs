@@ -3,10 +3,10 @@
     <h1>Create new car</h1>
 </section>
 <div class="container">
-    <form action="/customers/<%= customer._id %>/cars" method="POST">
+    <form action="/cars/<%= customerId %>" method="POST">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="car[name]">
+            <label for="name">Reg.No.</label>
+            <input type="text" class="form-control" id="name" name="car[regno]">
         </div>
         <div class="form-group">
             <label for="name">Make</label>
@@ -15,10 +15,6 @@
         <div class="form-group">
             <label for="name">Model</label>
             <input type="text" class="form-control" id="name" name="car[model]">
-        </div>
-        <div class="form-group">
-            <label for="name">Description</label>
-            <input type="text" class="form-control" id="name" name="car[description]">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

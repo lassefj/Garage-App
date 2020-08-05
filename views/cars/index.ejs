@@ -1,0 +1,30 @@
+<%- include ('../partials/header') %>
+
+<section class="jumbotron text-center">
+    <h1>Cars</h1>
+    <a href="/cars/new">New customer</a>
+</section>
+<section class="container">
+    <div class="row">
+        <div class="col-3"><strong>Reg. Nr</strong></div>
+        <div class="col-3"><strong>Make</strong></div>
+        <div class="col-3"><strong>Model</strong></div>
+        <div class="col-3"><strong>Owner</strong></div>
+    </div>
+    <% car.forEach(car => { %>
+    <a href="/customers/<%= car.owner._id %> ">
+        <div class="row list-item">
+            <div class="col-3"><%= car.regno %> </div>
+            <div class="col-3"><%= car.make %> </div>
+            <div class="col-3"><%= car.model %> </div>
+            <div class="col-3"><%= car.owner.name %> </div>
+        </div>
+    </a>
+    <% }); %>
+</section>
+<section class="container">
+
+
+</section>
+
+<%- include ('../partials/footer') %>

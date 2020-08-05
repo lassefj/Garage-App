@@ -1,10 +1,13 @@
 var mongoose = require('mongoose');
 
 var carSchema = new mongoose.Schema({
-    name: String,
+    regno: String,
     make: String,
     model: String,
-    description: String,
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Customer'
+    },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CarComment'

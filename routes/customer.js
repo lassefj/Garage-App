@@ -1,6 +1,7 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router({ mergeParams: true });
 var Customer = require('../models/customer')
+var CustomerComment = require('../models/customerComment')
 
 
 /* GET CUSTOMER index page. */
@@ -29,8 +30,10 @@ router.get('/new', function (req, res, next) {
 router.post('/', (req, res, next) => {
 
     var data = req.body.customer;
+    console.log(data);
+    console.log(req.body);
 
-    CustomerComment.create(data, function (err, customer) {
+    Customer.create(data, function (err, customer) {
         if (err) {
             console.log(err);
         } else {
@@ -50,6 +53,8 @@ router.get('/:id', function (req, res, next) {
         if (err) {
             console.log(err);
         } else {
+            console.log('-----------SEEEE------------');
+            console.log(foundCustomer);
             res.render('customers/show', { title: 'Customer: ' + foundCustomer.name, foundCustomer: foundCustomer })
         }
     })

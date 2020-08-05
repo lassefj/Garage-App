@@ -12,19 +12,26 @@
         <button type="submit" class="btn btn-danger">DELETE</button>
     </form>
 </section>
+
 <section class="container">
     <hr>
-    <h2>Cars</h2>
-    <% foundCustomer.cars.forEach((car)=>{ %>
-    <a href="/customers/<%= foundCustomer._id %>/cars/<%=car._id %>/">
-        <h3>Name: <%= car.name %></h3>
-    </a>
-    <h3>Make: <%= car.make %></h3>
-    <h3>Model: <%= car.model %></h3>
-    <h3>Description: <%= car.description %></h3>
-    <% }) %>
-</section>
-<section class="container">
+    <h2>Cars - <a href="/cars/new?customer=<%= foundCustomer._id %>">Create new car</a></h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">Reg.No.</div>
+            <div class="col-4">Make</div>
+            <div class="col-4">Model</div>
+        </div>
+        <% foundCustomer.cars.forEach((car)=>{ %>
+        <div class="row">
+            <div class="col-4"><%= car.regno %></div>
+            <div class="col-4"><%= car.make %></div>
+            <div class="col-4"><%= car.model %></div>
+        </div>
+        <% }); %>
+    </div>
+    <hr>
+    <br>
     <h2>Comments</h2>
     <hr>
     <% foundCustomer.comments.forEach((comment)=>{ %>
@@ -37,5 +44,7 @@
         <button type="submit">Send</button>
     </form>
 </section>
+
+<h1></h1>
 
 <%- include ('../partials/footer') %>

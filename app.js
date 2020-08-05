@@ -62,8 +62,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/customers', customersRouter);
 app.use('/customers/:id/comments', customerCommentsRouter);
-app.use('/customers/:id/cars', carsRouter);
-app.use('/customers/:id/cars/:carid/comments', carCommentsRouter);
+app.use('/cars', carsRouter);
+app.use('/cars/:carid/comments', carCommentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
