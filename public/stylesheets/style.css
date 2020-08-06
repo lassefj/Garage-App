@@ -1,3 +1,13 @@
 .list-item:hover{
     background-color: #D3D3D3;
 }
+.post-comment-input{
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-right: 0px;
+}
+.post-comment-button{
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+}

@@ -49,13 +49,11 @@ router.post('/', (req, res, next) => {
 
 router.get('/:id', function (req, res, next) {
 
-    Customer.findById(req.params.id).populate('comments').populate('cars').exec((err, foundCustomer) => {
+    Customer.findById(req.params.id).populate('comments').populate('cars').exec((err, customer) => {
         if (err) {
             console.log(err);
         } else {
-            console.log('-----------SEEEE------------');
-            console.log(foundCustomer);
-            res.render('customers/show', { title: 'Customer: ' + foundCustomer.name, foundCustomer: foundCustomer })
+            res.render('customers/show', { title: 'Customer: ' + customer.name, foundCustomer: customer })
         }
     })
 

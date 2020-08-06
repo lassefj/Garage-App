@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 
 var carCommentSchema = new mongoose.Schema({
-    text: String
+    text: String,
+    postedAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 

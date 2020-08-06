@@ -20,13 +20,51 @@ router.post('/', (req, res) => {
                 } else {
                     car.comments.push(comment);
                     car.save();
-                    res.redirect('/customers/' + req.params.id + '/cars/' + req.params.carid + '/');
+                    res.redirect('/cars/' + req.params.carid);
                 }
             })
         }
     })
 })
 
+router.delete('/:commentid', function (req, res) {
+    CarComment.findByIdAndDelete(req.params.commentid, function (err, comment) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('back')
+        }
+    })
+})
+
+router.get('/:commentid/edit', function (req, res) {
+
+    CarComment.findById(req.params.commentid, function (err, comment) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(req.params);
+            res.render('carComments/edit', {
+                params: req.params,
+                comment: comment
+            })
+        }
+    })
+
+
+})
+
+router.put('/:commentid', function (req, res) {
+
+    CarComment.findByIdAndUpdate(req.params.commentid, req.body.comment, function (err, comment) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/cars/' + req.params.carid)
+        }
+    })
+
+})
 
 
 module.exports = router;

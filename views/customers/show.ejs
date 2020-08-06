@@ -40,16 +40,27 @@
     <hr>
     <br>
     <h2>Comments</h2>
+    <form action="/customers/<%= foundCustomer._id %>/comments" method="POST" class="form-inline">
+        <input type="text" name="text" class="form-control post-comment-input w-75">
+        <button type="submit" class="btn btn-success post-comment-button">Send</button>
+    </form>
     <hr>
     <% foundCustomer.comments.forEach((comment)=>{ %>
-    <%= comment.text %>
+    <div class="row">
+        <div class="mr-auto"><%= comment.text %> </div>
+        <div class="ml-auto"><%= comment.postedAt.toDateString() %>
+            <a href="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>/edit"
+                class="btn btn-warning btn-sm">EDIT</a>
+            <form action="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"
+                class="d-inline">
+                <button type="submit" class="btn btn-danger d-inline btn-sm">DELETE</button>
+            </form>
+        </div>
+    </div>
     <hr>
     <% }); %>
     <br>
-    <form action="/customers/<%= foundCustomer._id %>/comments" method="POST">
-        <input type="text" name="text">
-        <button type="submit">Send</button>
-    </form>
+
 </section>
 
 <h1></h1>

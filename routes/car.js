@@ -81,12 +81,9 @@ router.get('/:carid', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log('-------CAR--------');
-            console.log(car);
             res.render('cars/show', {
                 title: 'Show car',
-                car: car,
-                param: req.params.id
+                car: car
             });
         }
     })
