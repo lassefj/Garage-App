@@ -4,6 +4,7 @@ var carSchema = new mongoose.Schema({
     regno: String,
     make: String,
     model: String,
+    notes: String,
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Customer'

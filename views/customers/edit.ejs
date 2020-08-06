@@ -15,16 +15,29 @@
                 value="<%= foundCustomer.email %>">
         </div>
         <div class="form-group">
-            <label for="name">Numberplate</label>
-            <input type="text" class="form-control" id="name" name="customer[numberplate]"
-                value="<%= foundCustomer.numberplate %>">
+            <label for="phone">Phone</label>
+            <input type="number" class="form-control" id="phone" name="customer[phone]"
+                value="<%= foundCustomer.phone %>">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" name="customer[address]"
+                value="<%= foundCustomer.address %>">
+        </div>
+        <div class="form-group">
+            <label for="zip">Zip code</label>
+            <input type="number" class="form-control" id="zip" name="customer[zip]" value="<%= foundCustomer.zip %>">
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" name="customer[city]" value="<%= foundCustomer.city %>">
         </div>
         <div class="form-group">
             <label for="name">Description</label>
             <input type="text" class="form-control" id="name" name="customer[description]"
                 value="<%= foundCustomer.description %>">
         </div>
-        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="submit" class="btn btn-primary">Make change</button>
     </form>
 </div>
 

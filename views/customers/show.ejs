@@ -4,13 +4,18 @@
     <h1>Customer: <%= foundCustomer.name %> </h1>
 </section>
 <section class="container">
-    <h2>E-mail: <%= foundCustomer.email %> </h2>
-    <h2>Number plate: <%= foundCustomer.numberplate %> </h2>
-    <h2>Description: <%= foundCustomer.description %> </h2>
-    <a href="/customers/<%= foundCustomer._id %>/edit" class="btn btn-warning">Edit</a>
-    <form action="/customers/<%= foundCustomer._id %>?_method=DELETE" method="POST">
-        <button type="submit" class="btn btn-danger">DELETE</button>
+    <h2>Options</h2>
+    <a href="/customers/<%= foundCustomer._id %>/edit" class="btn btn-warning">EDIT</a>
+    <form action="/customers/<%= foundCustomer._id %>?_method=DELETE" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger d-inline">DELETE</button>
     </form>
+    <hr>
+    <h3>E-mail: <%= foundCustomer.email %> </h3>
+    <h3>Phone: <%= foundCustomer.phone %> </h3>
+    <h3>Address: <%= foundCustomer.address %> </h3>
+    <h3>Zip: <%= foundCustomer.zip %> </h3>
+    <h3>City: <%= foundCustomer.city %> </h3>
+    <h3>Notes: <%= foundCustomer.description %> </h3>
 </section>
 
 <section class="container">
@@ -23,11 +28,13 @@
             <div class="col-4">Model</div>
         </div>
         <% foundCustomer.cars.forEach((car)=>{ %>
-        <div class="row">
-            <div class="col-4"><%= car.regno %></div>
-            <div class="col-4"><%= car.make %></div>
-            <div class="col-4"><%= car.model %></div>
-        </div>
+        <a href="/cars/<%= car._id %>">
+            <div class="row">
+                <div class="col-4"><%= car.regno %></div>
+                <div class="col-4"><%= car.make %></div>
+                <div class="col-4"><%= car.model %></div>
+            </div>
+        </a>
         <% }); %>
     </div>
     <hr>

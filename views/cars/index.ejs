@@ -12,7 +12,7 @@
         <div class="col-3"><strong>Owner</strong></div>
     </div>
     <% car.forEach(car => { %>
-    <a href="/customers/<%= car.owner._id %> ">
+    <a href="/cars/<%= car._id %> ">
         <div class="row list-item">
             <div class="col-3"><%= car.regno %> </div>
             <div class="col-3"><%= car.make %> </div>

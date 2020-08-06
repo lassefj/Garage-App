@@ -3,7 +3,10 @@ var mongoose = require('mongoose');
 var customerSchema = new mongoose.Schema({
     name: String,
     email: String,
-    numberplate: String,
+    phone: String,
+    address: String,
+    zip: String,
+    city: String,
     description: String,
     cars: [
         {

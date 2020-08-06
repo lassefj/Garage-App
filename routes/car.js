@@ -95,30 +95,23 @@ router.get('/:carid', (req, res) => {
 // EDIT CAR PAGE
 
 router.get('/:carid/edit', function (req, res) {
-    Customer.findById(req.params.id, function (err, customer) {
+    Car.findById(req.params.carid, function (err, car) {
         if (err) {
             console.log(err);
         } else {
-            Car.findById(req.params.carid, function (err, car) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.render('cars/edit', {
-                        car: car,
-                        customer: customer
-                    })
-                }
-            })
+            res.render('cars/edit', {
+                car: car
+            });
         }
-    })
-})
+    });
+});
 
 router.put('/:carid', function (req, res) {
     Car.findByIdAndUpdate(req.params.carid, req.body.car, function (err, car) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('/customers/' + req.params.id + '/cars/' + req.params.carid);
+            res.redirect('/cars/' + req.params.carid);
         }
     })
 })
@@ -126,4 +119,4 @@ router.put('/:carid', function (req, res) {
 
 
 
-module.exports = router;
+module.exports = router
