@@ -4,14 +4,15 @@ var Customer = require('../models/customer')
 var CustomerComment = require('../models/customerComment')
 
 
+
 /* GET CUSTOMER index page. */
 router.get('/', function (req, res, next) {
     var noMatch = null;
     if (req.query.search) {
 
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         var prop = req.query.drop.toLowerCase();
         var search = { [prop]: regex }
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         Customer.find(search, (err, allCustomers) => {
             if (err) {
                 console.log(err);
@@ -124,8 +125,6 @@ router.put('/:id', (req, res) => {
     })
 })
 
-function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+
 
 module.exports = router;
