@@ -9,8 +9,8 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var passport = require('passport');
-var LocalStrategy = require("passport-local")
-var User = require('./models/user')
+var LocalStrategy = require("passport-local");
+var User = require('./models/user');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -85,6 +85,6 @@ app.use(function (err, req, res, next) {
 
 app.listen(3000, function () {
   console.log('Succes');
-})
+});
 
 module.exports = app;

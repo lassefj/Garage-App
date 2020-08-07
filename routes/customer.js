@@ -6,14 +6,35 @@ var CustomerComment = require('../models/customerComment')
 
 /* GET CUSTOMER index page. */
 router.get('/', function (req, res, next) {
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    var noMatch = null;
+    var prop = req.query.drop.toLowerCase();
+    var search = { [prop]: regex }
+    console.log('////////----------/////////');
+    console.log(search);
+    if (req.query.search) {
 
-    Customer.find({}, (err, allCustomers) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('customers/index', { title: 'Customers', allCustomers: allCustomers, currentUser: req.user })
-        }
-    });
+        Customer.find(search, (err, allCustomers) => {
+            if (err) {
+                console.log(err);
+            } else {
+                if (allCustomers.length < 1) {
+                    noMatch = 'No customer match that query, please try again.';
+                }
+                res.render('customers/index', { title: 'Customers', allCustomers: allCustomers, currentUser: req.user, noMatch: noMatch })
+            }
+        });
+    } else {
+        Customer.find({}, function (err, allCustomers) {
+            if (err) {
+                console.log(err);
+            } else {
+
+                res.render('customers/index', { title: 'Customers', allCustomers: allCustomers, currentUser: req.user, noMatch: noMatch })
+            }
+        })
+    }
+
 
 
 });
@@ -104,5 +125,9 @@ router.put('/:id', (req, res) => {
         }
     })
 })
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

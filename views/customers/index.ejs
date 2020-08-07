@@ -2,15 +2,35 @@
 
 <section class="jumbotron text-center">
     <h1>Customers</h1>
-    <a href="/customers/new">New customer</a>
+    <a href="/customers/new" class="btn btn-success mb-3">New customer</a>
+    <form action="/customers" method="GET" class="form-inline">
+        <div class="form-group">
+            <label for="property">Select property to search</label>
+            <select class="form-control" id="property" name="drop">
+                <option>Name</option>
+                <option>Phone</option>
+                <option>Email</option>
+                <option>Address</option>
+                <option>Zip</option>
+                <option>City</option>
+            </select>
+        </div>
+        <div class="form-group mx-auto">
+            <input type="text" name="search" placeholder="Customer search..." class="form-control">
+            <input type="submit" value="Search" class="btn btn-primary form-control">
+        </div>
+    </form>
 </section>
 <section class="container">
-
+    <% if(noMatch){ %>
+    <h2 class="text-center"><%= noMatch %></h2>
+    <% } else { %>
     <div class="row">
         <div class="col-4"><strong>Name</strong></div>
         <div class="col-4"><strong>Email</strong></div>
         <div class="col-4"><strong>Phone</strong></div>
     </div>
+    <% } %>
     <% allCustomers.forEach(customer => { %>
     <a href="/customers/<%= customer._id %> ">
         <div class="row list-item">
