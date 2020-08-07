@@ -6,14 +6,12 @@ var CustomerComment = require('../models/customerComment')
 
 /* GET CUSTOMER index page. */
 router.get('/', function (req, res, next) {
-    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     var noMatch = null;
-    var prop = req.query.drop.toLowerCase();
-    var search = { [prop]: regex }
-    console.log('////////----------/////////');
-    console.log(search);
     if (req.query.search) {
 
+        var prop = req.query.drop.toLowerCase();
+        var search = { [prop]: regex }
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         Customer.find(search, (err, allCustomers) => {
             if (err) {
                 console.log(err);
