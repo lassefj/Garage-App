@@ -123,7 +123,7 @@ router.put('/:id', (req, res) => {
             res.redirect('/customers')
         }
     })
-})
+});
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
