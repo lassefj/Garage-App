@@ -1,0 +1,30 @@
+<%- include ('../partials/header') %>
+
+<section class="jumbotron text-center">
+    <h1>Products</h1>
+</section>
+<section class="container">
+    <% if(noMatch){ %>
+    <h2 class="text-center"><%= noMatch %></h2>
+    <% } else { %>
+    <div class="row">
+        <div class="col-4"><strong>Product</strong></div>
+        <div class="col-4"><strong>Shortcode</strong></div>
+        <div class="col-4"><strong>Price</strong></div>
+    </div>
+    <% } %>
+    <% product.forEach(product => { %>
+    <a href="/products/<%= product._id %> ">
+        <div class="row list-item">
+            <div class="col-4"><%= product.name %> </div>
+            <div class="col-4"><%= product.shortcode %> </div>
+            <div class="col-4"><%= product.price %> </div>
+        </div>
+    </a>
+    <% }); %>
+
+
+
+</section>
+
+<%- include ('../partials/footer') %>

@@ -9,16 +9,34 @@ const { isLoggedIn } = require('../middleware');
 
 // INDEX PAGE
 router.get('/', function (req, res) {
+    var noMatch = null
+    if (req.query.search) {
 
-    Car.find({}).populate('owner').exec(function (err, car) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('-------NOW HERE------');
-            console.log(car);
-            res.render('cars/index', { car: car })
-        }
-    })
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        var prop = req.query.drop.toLowerCase();
+        var search = { [prop]: regex }
+        console.log(search);
+        Car.find(search).populate('owner').exec(function (err, car) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (car.length < 1) {
+                    noMatch = 'No customer match that query, please try again.'
+                }
+                res.render('cars/index', { car: car, noMatch: noMatch })
+            }
+        })
+    } else {
+        Car.find({}).populate('owner').exec(function (err, car) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('cars/index', { car: car, noMatch: noMatch })
+            }
+        })
+    }
+
+
 })
 
 
@@ -45,14 +63,7 @@ router.get('/new', (req, res) => {
 // CREATE NEW CAR
 router.post('/:customerId', (req, res) => {
 
-    console.log('---------------START-------');
     var data = req.body.car;
-    console.log('---------------------------');
-    console.log(data);
-    console.log('---------------------------');
-    data.owner = req.params.customerId;
-    console.log(data);
-    console.log('---------------SLUT-------');
 
     Customer.findById(req.params.customerId, (err, customer) => {
         if (err) {
@@ -113,7 +124,9 @@ router.put('/:carid', function (req, res) {
     })
 })
 
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router

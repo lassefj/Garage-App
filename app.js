@@ -16,13 +16,15 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var customersRouter = require('./routes/customer');
 var carsRouter = require('./routes/car');
+var ordersRouter = require('./routes/order');
 var carCommentsRouter = require('./routes/carComments');
 var customerCommentsRouter = require('./routes/customerComments');
+var productRouter = require('./routes/product');
 
 const { url } = require('inspector');
 const { urlencoded } = require('body-parser');
 
-mongoose.connect(process.env.DB_HOST + 'garageDB', { useNewUrlParser: true, useUnifiedTopology: true }, function () {
+mongoose.connect(process.env.DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, function () {
   console.log('Mongoose is connected!');
 });
 
@@ -64,6 +66,8 @@ app.use('/customers', customersRouter);
 app.use('/customers/:id/comments', customerCommentsRouter);
 app.use('/cars', carsRouter);
 app.use('/cars/:carid/comments', carCommentsRouter);
+app.use('/orders', ordersRouter);
+app.use('/products', productRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

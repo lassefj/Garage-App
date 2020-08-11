@@ -1,0 +1,32 @@
+<%- include ('../partials/header') %>
+
+<section class="jumbotron text-center">
+    <h1>Create new order: <%= order.id %> </h1>
+    <a href="/orders/new" class="btn btn-success mb-3">New order</a>
+</section>
+
+<section class="container">
+    <% if(noMatch){ %>
+    <h2 class="text-center"><%= noMatch %></h2>
+    <% } else { %>
+    <div class="row">
+        <div class="col-4"><strong>Order.No</strong></div>
+        <div class="col-4"><strong>Reg.No</strong></div>
+        <div class="col-4"><strong>Date</strong></div>
+    </div>
+    <% } %>
+    <% order.forEach(order => { %>
+    <a href="/orders/<%= order._id %> ">
+        <div class="row list-item">
+            <div class="col-4"><%= order.id %> </div>
+            <div class="col-4"><%= order.name %> </div>
+            <div class="col-4"><%= order.createdAt.toLocaleDateString('en-US', options) %> </div>
+        </div>
+    </a>
+    <% }); %>
+
+
+
+</section>
+
+<%- include ('../partials/footer') %>
