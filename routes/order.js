@@ -13,18 +13,9 @@ router.get('/new', function (req, res) {
             console.log(err);
         } else {
             order.id++
-            Car.find().populate('owner').exec(function (err, car) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(car);
-                    console.log(order);
-                    res.render('orders/new', {
-                        order: order,
-                        car: car
-                    });
-                }
-            })
+            res.render('orders/new', {
+                order: order
+            });
         }
     })
 });

@@ -4,7 +4,12 @@
 <section class="jumbotron text-center">
     <h1>Create new order: <%= order.id %> </h1>
 </section>
-
+<div class="container">
+    <div class="form-group">
+        <input type="text" id="search" class="form-control" placeholder="Enter numberplate here..." autocomplete="off">
+        <div id="match-list"></div>
+    </div>
+</div>
 <div class="container">
     <form action="/orders" method="POST">
         <div class="form-group">
@@ -14,7 +19,51 @@
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
 
 
+    const search = document.getElementById('search');
+    const matchList = document.getElementById('match-list');
+
+    const searchCars = async (data) => {
+        try {
+            const res = await axios.get('/search/car?regno=' + data)
+
+            let matches = res.data
+
+            if (data.length === 0) {
+                matches = []
+                matchList.innerHTML = ''
+            }
+
+            outputHTML(matches)
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+
+
+
+    const outputHTML = matches => {
+        if (matches.length > 0) {
+            const html = matches
+                .map(
+                    match => `
+                <div class="card card-body mb-1">
+                    <h4>${match.regno}</h4>
+                </div>
+                `
+                ).join('')
+
+            matchList.innerHTML = html;
+        }
+    }
+
+    search.addEventListener('input', () => searchCars(search.value));
+
+</script>
 
 <%- include ('../partials/footer'); %>

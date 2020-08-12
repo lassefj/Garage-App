@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require("passport-local");
+var axios = require('axios').default;
 var User = require('./models/user');
 
 var indexRouter = require('./routes/index');
@@ -20,6 +21,7 @@ var ordersRouter = require('./routes/order');
 var carCommentsRouter = require('./routes/carComments');
 var customerCommentsRouter = require('./routes/customerComments');
 var productRouter = require('./routes/product');
+var searchRouter = require('./routes/search');
 
 const { url } = require('inspector');
 const { urlencoded } = require('body-parser');
@@ -68,6 +70,7 @@ app.use('/cars', carsRouter);
 app.use('/cars/:carid/comments', carCommentsRouter);
 app.use('/orders', ordersRouter);
 app.use('/products', productRouter);
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

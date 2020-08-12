@@ -64,18 +64,27 @@ router.get('/new', (req, res) => {
 router.post('/:customerId', (req, res) => {
 
     var data = req.body.car;
+    var customerId = req.query.customer
+    console.log('------------------');
+    console.log(req.params.customerId);
 
     Customer.findById(req.params.customerId, (err, customer) => {
         if (err) {
             console.log(err);
         } else {
-            Car.create(data, (err, car) => {
+            console.log('--------CUSTOMER INFO----------');
+            console.log(customer);
+            Car.create(data, async (err, car) => {
                 if (err) {
                     console.log(err);
                 } else {
-
-                    customer.cars.push(car);
-                    customer.save();
+                    console.log('---------INFO 2---------');
+                    console.log(customer);
+                    console.log(car);
+                    car.owner = customer._id
+                    await car.save()
+                    await customer.cars.push(car);
+                    await customer.save();
                     res.redirect('/customers/' + customer._id)
                 }
             })
