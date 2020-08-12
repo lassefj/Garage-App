@@ -36,4 +36,5 @@ function orderSearch() {
     }
 
     search.addEventListener('input', () => searchCars(search.value));
+
 }
