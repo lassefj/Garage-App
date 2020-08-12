@@ -9,7 +9,7 @@ router.get('/car', function (req, res) {
     const regex = new RegExp(escapeRegex(req.query.regno), 'gi');
     const search = { regno: regex }
 
-    Car.find(search, function (err, car) {
+    Car.find(search).populate('owner').exec(function (err, car) {
         if (err) {
             console.log(err);
         } else {

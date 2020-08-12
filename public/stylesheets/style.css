@@ -10,4 +10,6 @@
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
 }
+.card:hover {
+    background-color: #c5c5c5;
 }

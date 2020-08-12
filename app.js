@@ -10,7 +10,6 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require("passport-local");
-var axios = require('axios').default;
 var User = require('./models/user');
 
 var indexRouter = require('./routes/index');

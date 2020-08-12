@@ -5,19 +5,43 @@ var Car = require('../models/car');
 const { model } = require('../models/order');
 
 
+
 // CREATE NEW ORDER
 router.get('/new', function (req, res) {
 
-    Order.findOne().sort({ createdAt: -1 }).exec(function (err, order) {
-        if (err) {
-            console.log(err);
-        } else {
-            order.id++
-            res.render('orders/new', {
-                order: order
-            });
-        }
-    })
+    if (req.query.regno) {
+
+        Car.findOne({ regno: req.query.regno }).populate('owner').exec(function (err, car) {
+
+            Order.findOne().sort({ createdAt: -1 }).exec(function (err, order) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    order.id++
+                    res.render('orders/new', {
+                        order: order,
+                        car: car
+                    });
+                }
+            })
+
+        });
+
+    } else {
+
+
+        Order.findOne().sort({ createdAt: -1 }).exec(function (err, order) {
+            if (err) {
+                console.log(err);
+            } else {
+                order.id++
+                res.render('orders/new', {
+                    order: order,
+                    car: null
+                });
+            }
+        })
+    }
 });
 
 // SAVE NEW ORDER
