@@ -30,7 +30,10 @@
     </div>
     <hr>
     <% }) %>
+    <h2>Orders</h2>
+    <% car.orders.forEach(function(order){ %>
+    <a href="/orders/<%= order._id %>"> <%= order.id %></a><br>
+    <% }) %>
     <hr>
-
 </section>
 <%- include ('../partials/footer') %>

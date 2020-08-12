@@ -19,11 +19,12 @@
     <a href="/orders/<%= order._id %> ">
         <div class="row list-item">
             <div class="col-4"><%= order.id %> </div>
-            <div class="col-4"><%= order.name %> </div>
+            <div class="col-4"><%= order.car.regno %> </div>
             <div class="col-4"><%= order.createdAt.toLocaleDateString('en-US', options) %> </div>
         </div>
     </a>
     <% }); %>
+
 
 
 

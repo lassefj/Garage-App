@@ -97,7 +97,7 @@ router.post('/:customerId', (req, res) => {
 
 router.get('/:carid', (req, res) => {
 
-    Car.findById(req.params.carid).populate('comments').populate('owner').exec((err, car) => {
+    Car.findById(req.params.carid).populate('comments').populate('owner').populate('orders').exec((err, car) => {
         if (err) {
             console.log(err);
         } else {

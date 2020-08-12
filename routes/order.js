@@ -17,7 +17,9 @@ router.get('/new', function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    order.id++
+                    if (order) {
+                        order.id++
+                    }
                     res.render('orders/new', {
                         order: order,
                         car: car
@@ -34,7 +36,9 @@ router.get('/new', function (req, res) {
             if (err) {
                 console.log(err);
             } else {
-                order.id++
+                if (order) {
+                    order.id++
+                }
                 res.render('orders/new', {
                     order: order,
                     car: null
@@ -46,18 +50,29 @@ router.get('/new', function (req, res) {
 
 // SAVE NEW ORDER
 router.post('/', function (req, res) {
-    console.log(req.body.newOrder);
-    Order.create(req.body.newOrder, function (err, order) {
+
+    console.log(req.body);
+
+    Car.findOne({ regno: req.body.newOrder.regno }, function (err, car) {
         if (err) {
             console.log(err);
         } else {
-            console.log('---------------');
-            console.log(req.body.newOrder);
-            res.render('orders/index', {
-                order: order
-            });
+            Order.create(req.body.newOrder, async function (err, order) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    order.car = car._id
+                    car.orders.push(order)
+                    await order.save();
+                    await car.save();
+
+                    res.redirect('/orders');
+                }
+            })
+
         }
     })
+
 });
 
 // INDEX PAGE
@@ -69,9 +84,9 @@ var options = {
 }
 
 router.get('/', function (req, res) {
-    Order.find({}, function (err, order) {
+    Order.find({}).populate('car').exec(function (err, order) {
         console.log('---------- DATE--------');
-        console.log(order[0].createdAt.toLocaleDateString('en-US', options));
+        console.log(order);
         res.render('orders/index', {
             order: order,
             noMatch: null,
@@ -80,9 +95,10 @@ router.get('/', function (req, res) {
     })
 })
 
+// SHOW ORDER
 router.get('/:orderId', function (req, res) {
 
-    Order.findById(req.params.orderId, function (err, order) {
+    Order.findById(req.params.orderId).populate('car').exec(function (err, order) {
         if (err) {
             console.log(err);
         } else {
