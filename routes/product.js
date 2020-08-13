@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router({ mergeParams: true });
 var Product = require('../models/product')
+var { ObjectId } = require('mongodb');
 
 // INDEX PAGE
 router.get('/', function (req, res) {
@@ -17,20 +18,41 @@ router.get('/', function (req, res) {
     })
 })
 
+// NEW PRODUCT PAGE
 router.get('/new', function (req, res) {
     res.render('products/new')
 })
 
+// POST PRODUCT
 router.post('/', function (req, res) {
-    Product.create(req.body.product, function (err, product) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect('/products')
-        }
-    })
+
+    console.log('--------');
+    console.log(req.body);
+    console.log('--------');
+    // req.body.product.item[0] = ObjectId(req.body.product.item[0])
+
+    for (let i = 0; i < req.body.product.item.length; i++) {
+
+        req.body.product.item[i] = ObjectId(req.body.product.item[i])
+
+    }
+
+    console.log('--------');
+    console.log(req.body);
+    console.log('--------');
+    console.log(typeof (req.body.product.item[0]));
+
+    // Product.create(req.body.product, function (err, product) {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         res.redirect('/products')
+    //     }
+    // })
+
 })
 
+// PRODUCT SHOW PAGE
 router.get('/:productId', function (req, res) {
 
     Product.findById(req.params.productId, function (err, product) {

@@ -30,21 +30,40 @@
     <form action="/orders" method="POST">
         <% if(car){ %>
         <input type="hidden" name="newOrder[regno]" value="<%= car.regno %>">
-        <% } %>
+
         <div class="form-group">
             <label for="name">Repair date</label>
             <input type="text" class="form-control" id="flat" name="newOrder[date]">
         </div>
+
         <div class="form-group">
             <label for="repair">Repairs</label>
-            <input type="text" class="form-control" name="newOrder[repair]">
+            <input type="text" class="form-control" name="newOrder[repair][0]{}" id="repair-search" autocomplete="off">
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <div id="repair-search-list"></div>
+
+
+        <div id="repair-list" class="mt-5">
+            <div class="row">
+                <div class="col-3">Line No.</div>
+                <div class="col-3">Product name</div>
+                <div class="col-3">Price</div>
+                <div class="col-3">Shortcode</div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-5">Create</button>
     </form>
 </div>
+<% } %>
+<section class="container mt-5">
+    <div class="row">
+    </div>
+</section>
 
 <%- include ('../partials/footer'); %>
 <script>orderSearch()</script>
+<script>addRepair()</script>
 <script>
     $("#flat").flatpickr({
         enableTime: true,
