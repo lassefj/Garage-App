@@ -53,25 +53,25 @@ router.post('/', function (req, res) {
 
     console.log(req.body);
 
-    // Car.findOne({ regno: req.body.newOrder.regno }, function (err, car) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         Order.create(req.body.newOrder, async function (err, order) {
-    //             if (err) {
-    //                 console.log(err);
-    //             } else {
-    //                 order.car = car._id
-    //                 car.orders.push(order)
-    //                 await order.save();
-    //                 await car.save();
+    Car.findOne({ regno: req.body.newOrder.regno }, function (err, car) {
+        if (err) {
+            console.log(err);
+        } else {
+            Order.create(req.body.newOrder, async function (err, order) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    order.car = car._id
+                    car.orders.push(order)
+                    await order.save();
+                    await car.save();
 
-    //                 res.redirect('/orders');
-    //             }
-    //         })
+                    res.redirect('/orders');
+                }
+            })
 
-    //     }
-    // })
+        }
+    })
 
 });
 
@@ -98,10 +98,12 @@ router.get('/', function (req, res) {
 // SHOW ORDER
 router.get('/:orderId', function (req, res) {
 
-    Order.findById(req.params.orderId).populate('car').exec(function (err, order) {
+    Order.findById(req.params.orderId).populate('car').populate('repair').populate({ path: 'car', populate: { path: 'owner', model: 'Customer' } }).exec(function (err, order) {
         if (err) {
             console.log(err);
         } else {
+            console.log('------- ORDER INFO -----------');
+            console.log(order);
             res.render('orders/show', { order: order })
         }
     })

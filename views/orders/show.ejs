@@ -2,7 +2,68 @@
 <section class="jumbotron text-center">
     <h1>Order: <%= order.id %></h1>
 </section>
-<%= order %>
+<section class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2>Customer</h2>
+            <hr>
+            <p>
+                Name: <%= order.car.owner.name %><br>
+                E-mail: <%= order.car.owner.email %><br>
+                Phone: <%= order.car.owner.phone %><br>
+                Address: <%= order.car.owner.address %><br>
+                Zip/City: <%= order.car.owner.zip %> <%= order.car.owner.city %><br>
+            </p>
+        </div>
+        <div class="col-6">
+            <h2>Car</h2>
+            <hr>
+            <p>
+                Make: <%= order.car.make %><br>
+                Model: <%= order.car.model %><br>
+            </p>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2>Info</h2>
+            <hr>
+            Order created at: <%= order.createdAt %> <br>
+            Time for repair: <%= order.date %>
+        </div>
+        <div class="col-6">
+            <h2>Tyres</h2>
+            <hr>
+            Location: <br>
+            Etc: <br>
+            Etc: <br>
+            Etc: <br>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mt-5">Repairs</h2>
+            <hr>
+            <div class="row">
+                <div class="col-2"><strong>Line No.</strong></div>
+                <div class="col-8"><strong>Product name</strong></div>
+                <div class="col-2"><strong>Price</strong></div>
+            </div>
 
+            <% order.repair.forEach(function(rep, index){ %>
+            <% index++ %>
+            <div class="row">
+                <div class="col-2"><%= index %></div>
+                <div class="col-8"><%= rep.name %></div>
+                <div class="col-2"><%= rep.price %></div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
 
 <%- include ('../partials/footer') %>

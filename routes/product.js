@@ -26,29 +26,13 @@ router.get('/new', function (req, res) {
 // POST PRODUCT
 router.post('/', function (req, res) {
 
-    console.log('--------');
-    console.log(req.body);
-    console.log('--------');
-    // req.body.product.item[0] = ObjectId(req.body.product.item[0])
-
-    for (let i = 0; i < req.body.product.item.length; i++) {
-
-        req.body.product.item[i] = ObjectId(req.body.product.item[i])
-
-    }
-
-    console.log('--------');
-    console.log(req.body);
-    console.log('--------');
-    console.log(typeof (req.body.product.item[0]));
-
-    // Product.create(req.body.product, function (err, product) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         res.redirect('/products')
-    //     }
-    // })
+    Product.create(req.body.product, function (err, product) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/products')
+        }
+    })
 
 })
 

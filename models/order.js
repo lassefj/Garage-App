@@ -7,7 +7,11 @@ var orderSchema = new mongoose.Schema({
     car: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Car'
-    }
+    },
+    repair: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+    }]
 })
 
 orderSchema.plugin(AutoIncrement, { inc_field: 'id' });
