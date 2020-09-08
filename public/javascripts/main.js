@@ -104,3 +104,13 @@ function addRepairToList(name, price, shortcode, id) {
 
 
 }
+
+function eraseText() {
+    document.getElementById("message-body").value = "";
+}
+function carIsReady() {
+    document.getElementById("message-body").value = "Your car is ready to pick up";
+}
+function callUs() {
+    document.getElementById("message-body").value = "We tried to call you about your car. Can you call us ASAP";
+}

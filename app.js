@@ -21,6 +21,7 @@ var carCommentsRouter = require('./routes/carComments');
 var customerCommentsRouter = require('./routes/customerComments');
 var productRouter = require('./routes/product');
 var searchRouter = require('./routes/search');
+var messageRouter = require('./routes/message');
 
 const { url } = require('inspector');
 const { urlencoded } = require('body-parser');
@@ -70,6 +71,7 @@ app.use('/cars/:carid/comments', carCommentsRouter);
 app.use('/orders', ordersRouter);
 app.use('/products', productRouter);
 app.use('/search', searchRouter);
+app.use('/message', messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -90,7 +92,7 @@ app.use(function (err, req, res, next) {
 
 
 app.listen(3000, function () {
-  console.log('Succes');
+  console.log('Success');
 });
 
 module.exports = app;

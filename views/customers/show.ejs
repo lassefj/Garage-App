@@ -39,29 +39,53 @@
     </div>
     <hr>
     <br>
+</section>
+<section class="container">
+    <h2>Text the customer</h2>
+    <div class="mb-2">
+        <button class="btn btn-success" onclick="javascript:carIsReady()">Car is ready</button>
+        <button class="btn btn-success" onclick="javascript:callUs()">Call us</button>
+    </div>
+    <form action="/message" method="POST">
+        <div class="form-group">
+            <label for="message[number]">Phone</label>
+            <input type="text" name="message[number]" value="<%= foundCustomer.phone %> ">
+        </div>
+        <div class="form-group">
+            <textarea name="message[body]" id="message-body" cols="20" rows="7" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="button" class="btn btn-danger" onclick="javascript:eraseText()">Reset</button>
+    </form>
+    <hr>
+    <br>
+</section>
+<section class="container">
     <h2>Comments</h2>
     <form action="/customers/<%= foundCustomer._id %>/comments" method="POST" class="form-inline">
         <input type="text" name="text" class="form-control post-comment-input w-75">
         <button type="submit" class="btn btn-success post-comment-button">Send</button>
     </form>
     <hr>
-    <% foundCustomer.comments.forEach((comment)=>{ %>
-    <div class="row">
-        <div class="mr-auto"><%= comment.text %> </div>
-        <div class="ml-auto"><%= comment.postedAt.toDateString() %>
-            <a href="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>/edit"
-                class="btn btn-warning btn-sm">EDIT</a>
-            <form action="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"
-                class="d-inline">
-                <button type="submit" class="btn btn-danger d-inline btn-sm">DELETE</button>
-            </form>
+    <div class="container">
+        <% foundCustomer.comments.forEach((comment)=>{ %>
+        <div class="row">
+            <div class="mr-auto"><%= comment.text %> </div>
+            <div class="ml-auto"><%= comment.postedAt.toDateString() %>
+                <a href="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>/edit"
+                    class="btn btn-warning btn-sm">EDIT</a>
+                <form action="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>?_method=DELETE"
+                    method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger d-inline btn-sm">DELETE</button>
+                </form>
+            </div>
         </div>
     </div>
     <hr>
     <% }); %>
     <br>
-
 </section>
+
 
 <h1></h1>
 
