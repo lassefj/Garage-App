@@ -6,22 +6,53 @@
     <div class="row">
         <div class="col-6">
             <h2>Customer</h2>
-            <hr>
-            <p>
-                Name: <%= order.car.owner.name %><br>
-                E-mail: <%= order.car.owner.email %><br>
-                Phone: <%= order.car.owner.phone %><br>
-                Address: <%= order.car.owner.address %><br>
-                Zip/City: <%= order.car.owner.zip %> <%= order.car.owner.city %><br>
-            </p>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td><%= order.car.owner.name %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td><%= order.car.owner.email %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone</th>
+                        <td><%= order.car.owner.phone %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td><%= order.car.owner.address %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Zip</th>
+                        <td><%= order.car.owner.zip %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">City</th>
+                        <td><%= order.car.owner.city %></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col-6">
             <h2>Car</h2>
-            <hr>
-            <p>
-                Make: <%= order.car.make %><br>
-                Model: <%= order.car.model %><br>
-            </p>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Make</th>
+                        <td><%= order.car.make %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Model</th>
+                        <td><%= order.car.model %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Year</th>
+                        <td>XXXX</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
@@ -45,23 +76,30 @@
 </section>
 <section class="container">
     <div class="row">
+
+
+
         <div class="col-12">
             <h2 class="text-center mt-5">Repairs</h2>
-            <hr>
-            <div class="row">
-                <div class="col-2"><strong>Line No.</strong></div>
-                <div class="col-8"><strong>Product name</strong></div>
-                <div class="col-2"><strong>Price</strong></div>
-            </div>
-
-            <% order.repair.forEach(function(rep, index){ %>
-            <% index++ %>
-            <div class="row">
-                <div class="col-2"><%= index %></div>
-                <div class="col-8"><%= rep.name %></div>
-                <div class="col-2"><%= rep.price %></div>
-            </div>
-            <% }) %>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Line No.</th>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% order.repair.forEach(function(rep, index){ %>
+                    <% index++ %>
+                    <tr>
+                        <th scope="row"><%= index %></th>
+                        <td><%= rep.name %></td>
+                        <td>$ <%= rep.price %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

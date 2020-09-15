@@ -4,36 +4,93 @@
 </section>
 <section class="container">
     <h2>Options</h2>
-    <a href="/cars/<%= car._id %>/edit" class="btn btn-warning">EDIT</a>
+    <a href="/cars/<%= car._id %>/edit" class="btn btn-warning">EDIT CAR INFO</a>
     <form action="/cars/<%= car._id %>?_method=DELETE" method="POST" class="d-inline">
-        <button type="submit" class="btn btn-danger d-inline">DELETE</button>
+        <button type="submit" class="btn btn-danger d-inline">DELETE THE CAR</button>
     </form>
     <hr>
-    <h2><%= car.owner.name %></h2>
-    <hr>
-    <h2>Comments</h2>
-    <form action="/cars/<%= car._id %>/comments" method="POST" class="form-inline">
-        <input type="text" name="text" class="form-control post-comment-input w-75">
-        <button type="submit" class="btn btn-success post-comment-button">Post comment</button>
-    </form>
-    <hr>
-    <% car.comments.forEach(function(comment){ %>
     <div class="row">
-        <div class="mr-auto"><%= comment.text %> </div>
-        <div class="ml-auto"><%= comment.postedAt.toDateString() %>
-            <a href="/cars/<%= car._id %>/comments/<%= comment._id %>/edit" class="btn btn-warning btn-sm">EDIT</a>
-            <form action="/cars/<%= car._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"
-                class="d-inline">
-                <button type="submit" class="btn btn-danger d-inline btn-sm">DELETE</button>
+        <div class="col-6">
+            <h2>Info</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td><%= car.owner.name %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone</th>
+                        <td><%= car.owner.phone %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td><%= car.owner.email %></td>
+                    </tr>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Car</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Make</th>
+                        <td><%= car.make %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Model</th>
+                        <td><%= car.model %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            <h2>Comments</h2>
+            <form action="/cars/<%= car._id %>/comments" method="POST" class="form-inline">
+                <input type="text" name="text" class="form-control post-comment-input w-75">
+                <button type="submit" class="btn btn-success post-comment-button">Post comment</button>
             </form>
+            <hr>
+            <% car.comments.forEach(function(comment){ %>
+            <div class="row">
+                <div class="mr-auto"><%= comment.text %> </div>
+                <div class="ml-auto"><%= comment.postedAt.toDateString() %>
+                    <a href="/cars/<%= car._id %>/comments/<%= comment._id %>/edit"
+                        class="btn btn-warning btn-sm">EDIT</a>
+                    <form action="/cars/<%= car._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"
+                        class="d-inline">
+                        <button type="submit" class="btn btn-danger d-inline btn-sm">DELETE</button>
+                    </form>
+                </div>
+            </div>
+            <% }) %>
         </div>
     </div>
     <hr>
-    <% }) %>
-    <h2>Orders</h2>
-    <% car.orders.forEach(function(order){ %>
-    <a href="/orders/<%= order._id %>"> <%= order.id %></a><br>
-    <% }) %>
+    <div class="row">
+        <div class="col-6">
+            <h2>Orders</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Show order</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% car.orders.forEach(function(order){ %>
+                    <tr>
+                        <th scope="row"><%= order.id %></th>
+                        <td><a href="/orders/<%= order._id %>"><button class="btn btn-success">SHOW</button></a></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <hr>
 </section>
 <%- include ('../partials/footer') %>

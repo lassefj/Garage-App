@@ -4,89 +4,123 @@
     <h1>Customer: <%= foundCustomer.name %> </h1>
 </section>
 <section class="container">
-    <h2>Options</h2>
-    <a href="/customers/<%= foundCustomer._id %>/edit" class="btn btn-warning">EDIT</a>
-    <form action="/customers/<%= foundCustomer._id %>?_method=DELETE" method="POST" class="d-inline">
-        <button type="submit" class="btn btn-danger d-inline">DELETE</button>
-    </form>
+    <h2>Options:</h2>
+    <div class="d-flex">
+        <a href="/customers/<%= foundCustomer._id %>/edit" class="btn btn-warning">EDIT CUSTOMER INFO</a>
+        <form action="/customers/<%= foundCustomer._id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger d-inline">DELETE CUSTOMER</button>
+        </form>
+        <a href="/cars/new?customer=<%= foundCustomer._id %>" class="btn btn-primary ml-auto">CREATE NEW
+            CAR</a>
+    </div>
     <hr>
-    <h3>E-mail: <%= foundCustomer.email %> </h3>
-    <h3>Phone: <%= foundCustomer.phone %> </h3>
-    <h3>Address: <%= foundCustomer.address %> </h3>
-    <h3>Zip: <%= foundCustomer.zip %> </h3>
-    <h3>City: <%= foundCustomer.city %> </h3>
-    <h3>Notes: <%= foundCustomer.description %> </h3>
+    <div class="row">
+        <div class="col-6">
+            <h2>Info</h2>
+
+
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td><%= foundCustomer.email %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone</th>
+                        <td><%= foundCustomer.phone %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td><%= foundCustomer.address %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Zip</th>
+                        <td><%= foundCustomer.zip %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">City</th>
+                        <td><%= foundCustomer.city %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            <h2>Cars</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Reg.No.</th>
+                        <th scope="col">Make</th>
+                        <th scope="col">Model</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% foundCustomer.cars.forEach((car)=>{ %>
+                    <tr>
+                        <td><%= car.regno %></td>
+                        <td><%= car.make %></td>
+                        <td><%= car.model %></td>
+                        <td><a href="/cars/<%= car._id %>"><button class="btn btn-success">Show</button></a></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 
 <section class="container">
     <hr>
-    <h2>Cars - <a href="/cars/new?customer=<%= foundCustomer._id %>">Create new car</a></h2>
-    <div class="container">
-        <div class="row">
-            <div class="col-4">Reg.No.</div>
-            <div class="col-4">Make</div>
-            <div class="col-4">Model</div>
-        </div>
-        <% foundCustomer.cars.forEach((car)=>{ %>
-        <a href="/cars/<%= car._id %>">
-            <div class="row">
-                <div class="col-4"><%= car.regno %></div>
-                <div class="col-4"><%= car.make %></div>
-                <div class="col-4"><%= car.model %></div>
+    <h3>Notes: </h3>
+    <p><%= foundCustomer.description %></p>
+    <hr>
+</section>
+
+
+<section class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="mb-3">Text the customer</h2>
+            <div class="mb-4">
+                <h4>Instant messages:</h4>
+                <button class="btn btn-success" onclick="javascript:carIsReady()">Car is ready</button>
+                <button class="btn btn-success" onclick="javascript:callUs()">Call us</button>
             </div>
-        </a>
-        <% }); %>
-    </div>
-    <hr>
-    <br>
-</section>
-<section class="container">
-    <h2>Text the customer</h2>
-    <div class="mb-2">
-        <button class="btn btn-success" onclick="javascript:carIsReady()">Car is ready</button>
-        <button class="btn btn-success" onclick="javascript:callUs()">Call us</button>
-    </div>
-    <form action="/message" method="POST">
-        <div class="form-group">
-            <label for="message[number]">Phone</label>
-            <input type="text" name="message[number]" value="<%= foundCustomer.phone %> ">
+            <form action="/message" method="POST">
+                <div class="form-group">
+                    <textarea name="message[body]" id="message-body" cols="20" rows="7" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="message[number]">Phone</label>
+                    <input type="text" name="message[number]" value="<%= foundCustomer.phone %> ">
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+                <button type="button" class="btn btn-danger" onclick="javascript:eraseText()">Reset</button>
+            </form>
         </div>
-        <div class="form-group">
-            <textarea name="message[body]" id="message-body" cols="20" rows="7" class="form-control"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Send</button>
-        <button type="button" class="btn btn-danger" onclick="javascript:eraseText()">Reset</button>
-    </form>
-    <hr>
-    <br>
-</section>
-<section class="container">
-    <h2>Comments</h2>
-    <form action="/customers/<%= foundCustomer._id %>/comments" method="POST" class="form-inline">
-        <input type="text" name="text" class="form-control post-comment-input w-75">
-        <button type="submit" class="btn btn-success post-comment-button">Send</button>
-    </form>
-    <hr>
-    <div class="container">
-        <% foundCustomer.comments.forEach((comment)=>{ %>
-        <div class="row">
-            <div class="mr-auto"><%= comment.text %> </div>
-            <div class="ml-auto"><%= comment.postedAt.toDateString() %>
-                <a href="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>/edit"
-                    class="btn btn-warning btn-sm">EDIT</a>
-                <form action="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>?_method=DELETE"
-                    method="POST" class="d-inline">
-                    <button type="submit" class="btn btn-danger d-inline btn-sm">DELETE</button>
-                </form>
+        <div class="col-6">
+            <h2>Comments</h2>
+            <form action="/customers/<%= foundCustomer._id %>/comments" method="POST" class="form-inline">
+                <input type="text" name="text" class="form-control post-comment-input w-75">
+                <button type="submit" class="btn btn-success post-comment-button">Send</button>
+            </form>
+            <hr>
+            <div class="container">
+                <% foundCustomer.comments.forEach((comment)=>{ %>
+                <div class="row">
+                    <div class="mr-auto"><%= comment.text %> </div>
+                    <div class="ml-auto"><%= comment.postedAt.toDateString() %>
+                        <a href="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>/edit"
+                            class="btn btn-warning btn-sm">EDIT</a>
+                        <form action="/customers/<%= foundCustomer._id %>/comments/<%= comment._id %>?_method=DELETE"
+                            method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger d-inline btn-sm">DELETE</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+            <hr>
+            <% }); %>
         </div>
     </div>
-    <hr>
-    <% }); %>
-    <br>
-</section>
-
-
-<h1></h1>
-
-<%- include ('../partials/footer') %>
+    <%- include ('../partials/footer') %>

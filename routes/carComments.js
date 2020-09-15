@@ -4,9 +4,11 @@ var CarComment = require('../models/carComment');
 var Car = require('../models/car');
 const { create } = require('../models/customer');
 
+
+// CREATE CAR COMMENT
 router.post('/', (req, res) => {
 
-    var data = {
+    const data = {
         text: req.body.text
     }
 
@@ -26,6 +28,7 @@ router.post('/', (req, res) => {
         }
     })
 })
+
 
 router.delete('/:commentid', function (req, res) {
     CarComment.findByIdAndDelete(req.params.commentid, function (err, comment) {
